@@ -1,22 +1,20 @@
 class Solution {
 public:
-    int maxProfit(vector<int>& prices, int fee) {
-         int n=prices.size();
-        
-        vector<long> curr(2,0),after(2,0);
-        
-        for(int i=n-1;i>=0;i--){
-            for(int buy=0;buy<=1;buy++){
-                long profit=0; 
-                if(buy){
-            curr[buy]=max(-prices[i]+after[0],
-                      0+after[1]);
+    long f(int ind,vector<int>& prices,int n, int buy,vector<vector<int>> &dp,int fee){
+        if(ind==n)return 0;
+        if(dp[ind][buy]!=-1)return dp[ind][buy];
+
+        if(buy==1){
+             dp[ind][buy]=max((-prices[ind]+f(ind+1,prices,n,0,dp,fee)), f(ind+1,prices,n,1,dp,fee));
         }
         else{
-            curr[buy]=max(prices[i]-fee+after[1],0+after[0]);
+            dp[ind][buy]=max((+prices[ind]-fee+f(ind+1,prices,n,1,dp,fee)), f(ind+1,prices,n,0,dp,fee));
         }
-                       
-            }after=curr;
-        } return after[1];
+        return dp[ind][buy];
+    }   
+    int maxProfit(vector<int>& prices, int fee) {
+        int n=prices.size();
+        vector<vector<int>> dp(n,vector<int>(2,-1));
+       return f(0,prices,n,1,dp,fee);
     }
 };
