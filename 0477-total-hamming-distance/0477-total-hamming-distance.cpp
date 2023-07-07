@@ -7,7 +7,7 @@ public:
             for(int j=0;j<nums.size();j++){
                 if(nums[j]&1) o++;
                 else z++;
-                nums[j] /= 2;
+                nums[j] = nums[j]>>1;
             }
             if(o==nums.size() || z==nums.size()){
                 cnt+=0;
