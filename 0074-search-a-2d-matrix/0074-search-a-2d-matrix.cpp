@@ -7,10 +7,12 @@ public:
         int low=0,high=m*n-1;
         while(low<=high){
             int mid=low+(high-low)/2;
-            if(matrix[mid/m][mid%m]==target)return true;
+            if(matrix[mid/m][mid%m]==target){
+                matrix.clear();return true;
+            }
             else if(matrix[mid/m][mid%m]>target)high=mid-1;
             else low=mid+1;
-        }
+        }      matrix.clear();
         return false;
     }
 };
