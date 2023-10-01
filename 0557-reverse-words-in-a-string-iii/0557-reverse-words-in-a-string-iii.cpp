@@ -1,17 +1,16 @@
 class Solution {
 public:
     string reverseWords(string s) {
-           string a="",ans;
-           for(auto ch:s){
-               if(ch!=' ')a+=ch;
-               else{
-                   reverse(a.begin(),a.end());
-                   ans+=a+" ";
-                   a="";
-               }
-           } 
-           reverse(a.begin(),a.end());
-           ans+=a;
-           return ans;
+          vector<char> t;
+        string ans="";
+        for (char c : s){
+            if (c==' '){//All the words in s are separated by a single space.
+                ans+=string(t.rbegin(), t.rend())+' ';
+                t.clear();
+            }
+            else t.push_back(c);
+       }
+       ans+=string(t.rbegin(), t.rend());
+       return ans;
     }
 };
