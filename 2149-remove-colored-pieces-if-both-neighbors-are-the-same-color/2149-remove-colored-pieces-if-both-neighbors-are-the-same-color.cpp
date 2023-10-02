@@ -1,21 +1,19 @@
 class Solution {
 public:
     bool winnerOfGame(string colors) {
-        int i=0,n=colors.size();
-        int a=0,b=0;
-        while(i<n){
-            int a1=0,b1=0;
-            while(i<n && colors[i]=='A'){
-                a1++;
-                i++;
+         int alice = 0;
+        int bob = 0;
+        
+        for (int i = 1; i < colors.size() - 1; i++) {
+            if (colors[i - 1] == colors[i] && colors[i] == colors[i + 1]) {
+                if (colors[i] == 'A') {
+                    alice++;
+                } else {
+                    bob++;
+                }
             }
-            while(i<n && colors[i]=='B'){
-                i++;
-                b1++;
-            }
-            if(a1>2)a+=(a1-2);
-            if(b1>2)b+=(b1-2);
         }
-        return a>b;
+        
+        return alice - bob >= 1;
     }
 };
