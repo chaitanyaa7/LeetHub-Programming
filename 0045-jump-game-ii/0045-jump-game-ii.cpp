@@ -11,9 +11,22 @@ public:
          return dp[i]=ans;
 
     }
-    int jump(vector<int>& nums) {
-        int n=nums.size();
-        vector<int> dp(n,-1);
-        return f(0,n,nums,dp);
+    int jump(vector<int>& arr) {
+        int n=arr.size();
+         if(n==1)return 0;
+        
+        int coverage=0;
+        int mini=0;
+        int last=0;
+        int destination=n-1;
+        for(int i=0;i<n;i++){
+            coverage=max(coverage,i+arr[i]);
+            if(i==last){
+                mini++;
+                last=coverage;
+            }
+            if(last>=destination)return mini;
+        }
+        return mini;
     }
 };
