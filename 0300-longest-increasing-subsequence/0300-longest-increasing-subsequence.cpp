@@ -9,16 +9,31 @@ public:
     }
     int lengthOfLIS(vector<int>& a) {
         int n=a.size();
-        vector<vector<int>> dp(n+1,vector<int>(n+1,0));
-       for(int i=n-1;i>=0;i--){
-           for(int j=i-1;j>=-1;j--){
-                int len=0+dp[i+1][j+1];
-                if(i==0 || j==-1 || a[i]>a[j]){
-                     len=max(len,1+dp[i+1][i+1]);
-                }
-                dp[i][j+1]=len;
-           }
-       }
-       return dp[0][-1+1];
+    //     vector<vector<int>> dp(n+1,vector<int>(n+1,0));
+    //    for(int i=n-1;i>=0;i--){
+    //        for(int j=i-1;j>=-1;j--){
+    //             int len=0+dp[i+1][j+1];
+    //             if(i==0 || j==-1 || a[i]>a[j]){
+    //                  len=max(len,1+dp[i+1][i+1]);
+    //             }
+    //             dp[i][j+1]=len;
+    //        }
+    //    }
+    //    return dp[0][-1+1];
+     vector<int> ans;
+      int len=1;
+      ans.push_back(a[0]);
+      for(int i=1;i<n;i++){
+          if(a[i]>ans.back()){
+              ans.push_back(a[i]);
+              len++;
+          }
+          else{
+              int ind=lower_bound(ans.begin(),ans.end(),a[i])-ans.begin();
+              ans[ind]=a[i];
+          }
+      }
+      return len;
+    
     }
 };
